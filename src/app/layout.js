@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import NextAuthProvider from "@/provider/NextAuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +31,14 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body suppressHydrationWarning>
-        <Suspense fallback={null}>
-          <NavBar />
-        </Suspense>
+        <NextAuthProvider>
+          <Suspense fallback={null}>
+            <NavBar />
+          </Suspense>
 
-        <main className="min-h-screen  w-11/12 m-auto ">{children}</main>
-        <Footer />
+          <main className="min-h-screen  w-11/12 m-auto ">{children}</main>
+          <Footer />
+        </NextAuthProvider>
       </body>
     </html>
   );
